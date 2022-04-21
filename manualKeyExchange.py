@@ -3,7 +3,23 @@ from keyExchange import *
 '''
 Problem Combos:
 Bob: 54, 27 -> gives (INF)
+
+# alice: cant both be divisible by 2
+# could be less than 2^3
+
+# bob: cant both be divisible by 3
+# could be less than 3^2
 '''
+
+# Alice
+m_a = 16
+n_a = 65
+R_A = CURVE.add(CURVE.dbl_add(P_A, m_a), CURVE.dbl_add(Q_A, n_a))
+
+# Bob 
+m_b = 22
+n_b = 54
+R_B = CURVE.add(CURVE.dbl_add(P_B, m_b), CURVE.dbl_add(Q_B, n_b))
 
 # what alice calculates for first round 
 aPhi, aPoints = twoStrategy(R_A, [P_B,Q_B])

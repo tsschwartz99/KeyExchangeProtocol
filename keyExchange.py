@@ -5,16 +5,6 @@ from parameterSet import *
 # set the field to the proper prime number
 setField(PRIME)
 
-# Alice
-m_a = 16
-n_a = 65
-R_A = CURVE.add(CURVE.dbl_add(P_A, m_a), CURVE.dbl_add(Q_A, n_a))
-
-# Bob 
-m_b = 22
-n_b = 54
-R_B = CURVE.add(CURVE.dbl_add(P_B, m_b), CURVE.dbl_add(Q_B, n_b))
-
 # function to create subgroups
 # shouldnt reference CURVE
 def createSubgroup(c:EllipticCurve, p:Point) -> list[Point]:

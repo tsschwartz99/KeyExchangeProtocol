@@ -11,21 +11,22 @@ server_socket = socket(AF_INET, SOCK_STREAM)
 # function to get user's secret keys
 # question: will not take 0 as a number ... is this okay?
 def getKeysHelper() -> tuple[int,int]:
-    print("INPUT YOUR SECRET KEYS.\nTHEY MUST BE BETWEEN 1 AND 70, INCLUSIVE.")
+    print()
+    print("INPUT YOUR SECRET KEYS.\nTHEY MUST BE BETWEEN 1 AND 9, INCLUSIVE.\nM AND N CANNOT BOTH BE DIVISIBLE BY 3.")
     
     # obtain values from user
     m: int = int(input("M VALUE: "))
 
     # check that m is valid
-    while(m>70 or m<1):
-        print("M MUST BE BETWEEN 1 AND 70, INCLUSIVE.")
+    while(m>10 or m<1):
+        print("M MUST BE BETWEEN 1 AND 9, INCLUSIVE.")
         m = int(input("M VALUE: "))
 
     n: int = int(input("N VALUE: "))
 
     # check that n is valid
-    while(n>70 or n<1):
-        print("N MUST BE BETWEEN 1 AND 70, INCLUSIVE.")
+    while(n>10 or n<1 or (m%3 == 0 and n%3 == 0)):
+        print("N MUST BE BETWEEN 1 AND 9, INCLUSIVE.\nM AND N CANNOT BOTH BE DIVISIBLE BY 3.")
         n = int(input("N VALUE: "))
 
     # return m and n
@@ -42,6 +43,7 @@ def getKeys() -> tuple[int,int, Point]:
 
     # this point will be the generator for the subgroup
     rPoint = CURVE.add(CURVE.dbl_add(P_B, m), CURVE.dbl_add(Q_B, n))
+    print()
 
     return (m,n,rPoint)
 
@@ -99,7 +101,7 @@ def main():
 
     # create a new isogeny
     phi, _ = oddStrategy(R_prime,[],E_A)
-    print(phi.codomain.jInvariant())
+    print("Your shared secret key is: " + str(phi.codomain.jInvariant()))
 
     connection_socket.close()
 

@@ -33,21 +33,22 @@ def getArgs():
 # function to get user's secret keys
 # question: will not take 0 as a number ... is this okay?
 def getKeysHelper() -> tuple[int,int]:
-    print("INPUT YOUR SECRET KEYS.\nTHEY MUST BE BETWEEN 1 AND 70, INCLUSIVE.")
+    print()
+    print("INPUT YOUR SECRET KEYS.\nTHEY MUST BE BETWEEN 1 AND 8, INCLUSIVE.\nM AND N CANNOT BOTH BE EVEN.")
     
     # obtain values from user
     m: int = int(input("M VALUE: "))
 
     # check that m is valid
-    while(m>70 or m<1):
-        print("M MUST BE BETWEEN 1 AND 70, INCLUSIVE.")
+    while(m>9 or m<1):
+        print("M MUST BE BETWEEN 1 AND 8, INCLUSIVE.")
         m = int(input("M VALUE: "))
 
     n: int = int(input("N VALUE: "))
 
     # check that n is valid
-    while(n>70 or n<1):
-        print("N MUST BE BETWEEN 1 AND 70, INCLUSIVE.")
+    while(n>9 or n<1 or (m%2 == 0 and n%2 == 0)):
+        print("N MUST BE BETWEEN 1 AND 8, INCLUSIVE.\nM AND N CANNOT BOTH BE EVEN.")
         n = int(input("N VALUE: "))
 
     # return m and n
@@ -64,6 +65,7 @@ def getKeys() -> tuple[int,int, Point]:
 
     # this point will be the generator for the subgroup
     rPoint = CURVE.add(CURVE.dbl_add(P_A, m), CURVE.dbl_add(Q_A, n))
+    print() 
 
     return (m,n,rPoint)
     
@@ -108,7 +110,7 @@ def main():
 
     # create a new isogeny
     phi, _ = twoStrategy(R_prime,[],E_B)
-    print(phi.codomain.jInvariant())
+    print("Your shared secret key is: " + str(phi.codomain.jInvariant()))
     
     client_socket.close()
 

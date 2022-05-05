@@ -52,7 +52,7 @@ class Isogeny:
 
     # if subgroup = 2, follow this method
     # Thm. 5.13 (Velu)
-    def __twoOrder(self, p: Point) -> tuple[Point,EllipticCurve]:
+    def __twoOrder(self, p: Point) -> Point:
         r = self.subgroup[0].x
         t: ComplexNumber = ComplexNumber(3,0)*r**2 + self.domain.a
         xVal: ComplexNumber = (p.x**2 - r*p.x + t)/(p.x-r)
